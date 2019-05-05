@@ -1,33 +1,51 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import Form from "./components/Form";
 import Recipes from "./components/Recipes";
+import Footer from "./components/Footer";
+import { API_KEY } from "./components/utils";
 
-const API_KEY = "6877f4b9c87de4c5665431af1d52b9b3";
-
-class App extends Component {
+class App extends React.Component {
   state = {
     recipes: [],
-    ingredient: "",
-    api_call: `https://www.food2fork.com/api/search?key=${API_KEY}`,
-    sort: ""
+    ingredient: ""
+    // sort: "t",
+    // loading: false
   };
 
   getRecipe = async e => {
     e.preventDefault();
+    // this.setState({ loading: true });
     const recipeName = e.target.elements.recipeName.value;
-    const api_call = await fetch(
-      `https://www.food2fork.com/api/search?key=${API_KEY}&q=${recipeName}`
-    );
+    let url = `https://www.food2fork.com/api/search?key=${API_KEY}&q=${recipeName}`;
+    //url += this.state.sort === "r" ? "&sort=r" : "";
+    const api_call = await fetch(url);
     const data = await api_call.json();
-    this.setState({ recipes: data.recipes, ingredient: recipeName, api_call });
+    this.setState({
+      recipes: data.recipes,
+      ingredient: recipeName
+      // loading: false
+    });
   };
+
+  // handleSort = async e => {
+  //   const sort = e.target.id;
+  //   if (sort !== this.state.sort) {
+  //     let url = `https://www.food2fork.com/api/search?key=${API_KEY}`;
+  //     url += this.state.ingredient ? `&q=${this.state.ingredient}` : "";
+  //     url += sort === "r" ? "&sort=r" : "";
+  //     console.log(url);
+  //     const api_call = await fetch(url);
+  //     const data = await api_call.json();
+  //     this.setState({ recipes: data.recipes, sort });
+  //   }
+  // };
 
   componentDidMount = () => {
     const json = localStorage.getItem("recipes");
     const ingredient = localStorage.getItem("ingredient");
-    const recipes = JSON.parse(json);
-    if (recipes !== null && ingredient !== null) {
+    if (json) {
+      const recipes = JSON.parse(json);
       this.setState({ recipes, ingredient });
     } else {
       fetch(`https://www.food2fork.com/api/search?key=${API_KEY}`)
@@ -52,7 +70,11 @@ class App extends Component {
         <Recipes
           recipes={this.state.recipes}
           ingredient={this.state.ingredient}
+          handleSort={this.handleSort}
+          sort={this.state.sort}
+          // loading={this.state.loading}
         />
+        <Footer />
       </div>
     );
   }

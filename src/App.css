@@ -18,6 +18,7 @@ button:focus {
 
 .App {
   text-align: center;
+  position: relative;
 }
 
 .App-header {
@@ -63,6 +64,10 @@ form,
   text-transform: uppercase;
 }
 
+.container {
+  padding-bottom: 3em;
+}
+
 .recipes__box {
   background: #fff;
   padding-bottom: 2rem;
@@ -104,6 +109,12 @@ form,
   letter-spacing: 1px;
 }
 
+.recipe_num,
+.ingredient {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
 .form__input {
   background: transparent;
   border: 0;
@@ -143,4 +154,85 @@ input[type="text"] {
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px #f3f3f3 inset;
   -webkit-text-fill-color: #2c3e50 !important;
+}
+
+.sort * {
+  padding: 0 5px;
+  margin-bottom: 1em;
+}
+
+.sort label:nth-child(1) {
+  margin-right: 10px;
+}
+
+.input-group {
+  justify-content: center;
+}
+
+.input-group-prepend:nth-child(1) {
+  padding-right: 20px;
+}
+
+.loading {
+  height: 100px;
+  position: relative;
+  top: 10px;
+  width: 10vw;
+}
+
+.fa-apple-alt {
+  animation: loadingFade 2s infinite;
+  position: absolute;
+}
+
+.fa-apple-alt:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.fa-apple-alt:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.fa-apple-alt:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.fa-apple-alt:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.fa-apple-alt:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+@keyframes loadingFade {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(60vw);
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 4em;
+  color: white;
+  background-color: #3498db;
+}
+
+.footer span {
+  display: block;
+  padding-top: 1em;
+}
+
+.footer a {
+  text-decoration: none;
 }
